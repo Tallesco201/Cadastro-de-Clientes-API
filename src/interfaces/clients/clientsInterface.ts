@@ -20,6 +20,7 @@ export interface IClientUpdate{
     email?: string;
     telephone?:string;
     password?:string;
+    isAdm?:boolean;
     
 }
 

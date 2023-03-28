@@ -10,12 +10,12 @@ const clientRouter = Router()
 clientRouter.post("", createdClientController)
 
 //LISTAGEM DE TODOS OS CLIENTES
-clientRouter.get("",verifyAutheticationOfToken,userAndAdmMiddleware,listClientsController )
+clientRouter.get("/list",verifyAutheticationOfToken,userAndAdmMiddleware,listClientsController )
 
 //ATUALIZAÇÃO 
-clientRouter.patch("/:id", verifyAutheticationOfToken,custumerAndAdmAndProfileUser, updateClientsController)
+clientRouter.patch("/update/:id", verifyAutheticationOfToken,custumerAndAdmAndProfileUser, updateClientsController)
 
 //DELEÇÃO 
-clientRouter.delete("/:id",verifyAutheticationOfToken,custumerAndAdmAndProfileUser,deleteClientController )
+clientRouter.delete("/delete/:id",verifyAutheticationOfToken,custumerAndAdmAndProfileUser,deleteClientController )
 
 export default clientRouter

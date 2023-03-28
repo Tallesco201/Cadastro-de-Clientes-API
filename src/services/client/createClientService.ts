@@ -11,7 +11,7 @@ export const createdClientService = async (clientData:IClientRequest) =>{
     })
 
     if(findClientVerification){
-        throw new AppError("Client already exists", 409)
+        throw new AppError("Client already exists", 400)
     }
 
     const createdClient = clientRepository.create(clientData)

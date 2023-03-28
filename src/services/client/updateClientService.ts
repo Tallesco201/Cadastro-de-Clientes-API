@@ -7,10 +7,6 @@ export const updateClientService = async (clientUpdateData:IClientUpdate, id:str
     const clientRepository =  AppDataSource.getRepository(Client)
 
 
-/*     const client  = id === idLogin || isAdm === true ? "ok": "deu certo "
- */
-
-    /* if(id === idLogin || isAdm === true){ */
         const clientExists = await clientRepository.findOneBy({
             id
         })
@@ -18,11 +14,16 @@ export const updateClientService = async (clientUpdateData:IClientUpdate, id:str
         if(!clientExists){
             throw new AppError("client non-exixtent ", 404)
         }
-    
+
+     /*    if(clientUpdateData.isAdm === true || clientUpdateData.isAdm===false){
+            throw new AppError("It is not allowed to update the isAdm", 404)
+        }
+     */
         const updateClient= clientRepository.create(
             {
                 ...clientExists,
-                ...clientUpdateData
+                ...clientUpdateData,
+                isAdm:clientExists.isAdm
             }
         )
     

@@ -8,21 +8,23 @@ import { Client } from "../../entities/client.entity";
 import { AppError } from "../../errors/AppError";
 import { IClientLogin } from "../../interfaces/clients/clientsInterface";
 
-export const loginClientService = async  ({email, password}:IClientLogin)=>{
+export const loginClientService = async  (data:IClientLogin)=>{
     const clientRepository = AppDataSource.getRepository(Client)
 
     const client = await clientRepository.findOneBy({
-        email
+        email:data.email
     })
 
-    const passwordMacth = await compare(password,  client.password)
+    
+
+    const passwordMacth = await compare(data.password,  client.password)
 
     if(!client){
-        throw new AppError("Email or password invalid', 403")
+        throw new AppError("Email or password invalid", 403)
     }
 
     if(!passwordMacth){
-        throw new AppError("Email or password invalid', 403")
+        throw new AppError("Email or password invalid", 403)
     }
 
     const token = jwt.sign(
@@ -39,6 +41,6 @@ export const loginClientService = async  ({email, password}:IClientLogin)=>{
         
     )
 
-    return token
+    return {token}
 
 }

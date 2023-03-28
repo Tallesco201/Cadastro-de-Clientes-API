@@ -1,0 +1,665 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "title":"API full CRUD of customers and their contacts",
+        "description":"Full CRUD of customers and their contacts",
+        "contact":{
+            "email":"tallesco201@gmail.com"
+        },
+        "version":"1.0.0"
+    },
+    "servers":[
+        {
+            "url": "http://localhost:3000",
+            "description":""
+        }
+    ],
+    "paths":{
+        "/client":{
+            "post":{
+                "summary":"Created client",
+                "description":"this route is responsible for creating the client",
+                "tags":["Client"],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Client"
+                            },
+                            "examples":{
+                                "client":{
+                                    "value":{
+                                        "name":"Joao Kleber",
+                                        "email":"joao@kenzie.com",
+                                        "password":"1234",
+                                        "telephone":"11912345678",
+                                        "isAdm":true
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "400":{
+                        "description":"Client already exists",
+                        "content":{
+                            "application/json":{
+                                "examples":{
+                                    "client":{
+                                        "value":{
+                                           "message":"Client already exists"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "201":{
+                        "description":"Create",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    
+                                        "$ref":"#/components/schemas/Client"
+
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+            }
+        },
+        "/client/list":{
+            "get":{
+                "summary":"List all clients",
+                "description":"this route is responsible for listing of clients",
+                "tags":["Client"],
+                "security":[{"bearerAuth":[]}],
+                "responses":{
+                    "403":{
+                        "description":"the user is not an administrator",
+                        "content":{
+                            "application/json":{
+                                "examples":{
+                                    "client":{
+                                        "value":{
+                                           "message":"the user is not an administrator"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "201":{
+                        "description":"Create",
+                        "content":{
+                            "application/json":{
+                                "schema":
+                                    {
+                                        "type":"array",
+                                        "items":{
+                                            
+                                                "$ref":"#/components/schemas/Client"
+
+                                            
+
+                                        }
+                                       
+
+                                    }
+                                    
+                                    
+                                    
+                            }
+                        }
+
+                    }
+                }
+            }
+        },
+
+        "/client/update/{id}":{
+            "patch":{
+                "summary":"Client update by id",
+                "description":"this route is responsible for client update by id",
+                "tags":["Client"],
+                "security":[{"bearerAuth":[]}],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Client"
+                            },
+                            "examples":{
+                                "client":{
+                                    "value":{
+                                        "name?":"Joyce Luz",
+                                        "email?":"joycinha@kenzie.com",
+                                        "password?":"123456",
+                                        "telephone?":"11999994578"
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "401":{
+                        "description":"customer is not the owner of the profile and not an administrator",
+                        "content":{
+                            "application/json":{
+                                "examples":{
+                                    "client":{
+                                        "value":{
+                                           "message":"customer is not the owner of the profile and not an administrator"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "200":{
+                        "description":"OK",
+                        "content":{
+                            "application/json":{
+                                "schema":
+                                    {
+                                        "$ref":"#/components/schemas/Client"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                                
+                                        
+                                        
+                                            
+
+                                            
+
+
+                                        
+                                       
+                                    
+                                    
+                                    
+        },
+        "/client/delete/{id}":{
+            "delete":{
+                "summary":"Client delete by id",
+                "description":"this route is responsible for client delete by id",
+                "tags":["Client"],
+                "security":[{"bearerAuth":[]}],
+                "responses":{
+                    "400":{
+                        "description":"Client non-existent",
+                        "content":{
+                            "application/json":{
+                                "examples":{
+                                    "client":{
+                                        "value":{
+                                           "message":"Client non-existent"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                    },
+                    "204":{
+                        "description":"No Content"
+                    }
+                }
+            }
+        },
+        
+        "/login":{
+            "post":{
+                "summary":"Login client",
+                "description":"This route is responsible for login of client",
+                "tags":["Login"],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Login"
+                            },
+                            "examples":{
+                                "login":{
+                                    "value":{
+                                        "email":"joao@kenzie.com",
+                                        "password":"1234"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "403":{
+                        "description":"Email or password invalid",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Login"
+                                },
+                                "examples":{
+                                    "login":{
+                                        "value":{
+                                           "message":"Email or password invalid"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "200":{
+                        "description":"Login",
+                        "content":{
+                            "application/json":{
+                               
+                                "examples":{
+                                    "login":{
+                                        "value":{
+                                            "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbSI6dHJ1ZSwiaWQiOiJiYWZkOWZjMy1lMTJhLTQxZGQtODRjNi01MTE2ZmZjM2RkYzUiLCJpYXQiOjE2Nzk5Njg2MDcsImV4cCI6MTY4MDA1NTAwNywic3ViIjoiYmFmZDlmYzMtZTEyYS00MWRkLTg0YzYtNTExNmZmYzNkZGM1In0.H3csTKW71yxPvJnrH9UYrTr9zO6yOdfGBNZuD_eJv7Y"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        },
+
+        "/contact/{id}":{
+            "post":{
+
+                "summary":"Contact creation by customer id ",
+                    "description":"this route is responsible for creating the contact by custumer id",
+                    "tags":["Contacts"],
+                    "security":[{"bearerAuth":[]}],
+                    "requestBody":{
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/ContactBody"
+                                },
+                                "examples":{
+                                    "client":{
+                                        "value":{
+                                            "name":"contato 1",
+                                            "email":"tsunode@kenzie.com",
+                                            "telephone":"11999991234"
+                                
+    
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "responses":{
+                        "400":{
+                            "description":"Contact already exists",
+                            "content":{
+                                "application/json":{
+                                    "examples":{
+                                        "client":{
+                                            "value":{
+                                               "message":"Contact already exists"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "201":{
+                            "description":"Create",
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                        
+                                            "$ref":"#/components/schemas/ContactResponse"
+    
+                                    }
+                                }
+                            }
+    
+                        }
+                    }
+            }
+        },
+        "/contact/list/{id}":{
+            "get":{
+                "summary":"Contact listing by customer id ",
+                    "description":"This route is responsible for listing contacts by customer id",
+                    "tags":["Contacts"],
+                    "security":[{"bearerAuth":[]}],
+                    "responses":{
+                        "400":{
+                            "description":"Client non-existent",
+                            "content":{
+                                "application/json":{
+                                    "examples":{
+                                        "client":{
+                                            "value":{
+                                               "message":"Client non-existent"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "200":{
+                            "description":"Contact listing by customer id ",
+                            "content":{
+                                "application/json":{
+                                    "schema":
+                                        {
+                                            "type":"array",
+                                            "items":{
+                                                
+                                                    "$ref":"#/components/schemas/ContactResponseGet"
+    
+                                                
+    
+                                            }
+                                           
+    
+                                        }
+                                        
+                                        
+                                        
+                                }
+                            }
+    
+                        }
+                    }
+            }
+        },
+        "/contact/update/{id}":{
+
+            "patch":{
+                "summary":"Contact update by contact id ",
+                "description":"This route is responsible for update contacts by contact id",
+                "tags":["Contacts"],
+                "security":[{"bearerAuth":[]}],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/ContactBody"
+                            },
+                            "examples":{
+                                "client":{
+                                    "value":{
+                                        "name?":"Joyce Luz",
+                                        "email?":"joycinha@kenzie.com",
+                                        "telephone?":"11999994578"
+                                       
+    
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                },
+
+                "responses":{
+                    "400":{
+                        "description":"Contact non-existent",
+                        "content":{
+                            "application/json":{
+                                "examples":{
+                                    "client":{
+                                        "value":{
+                                           "message":"Contact non-existent"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                    },
+                    "200":{
+                        "description":"Contact update by contact id ",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/ContactResponseGet"
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contact/delete/{id}":{
+            "delete":{
+                "summary":"Contact delete by contact id ",
+                "description":"This route is responsible for delete contacts by contact id",
+                "tags":["Contacts"],
+                "security":[{"bearerAuth":[]}],
+                "responses":{
+                    "400":{
+                        "description":"Contact non-existent",
+                        "content":{
+                            "application/json":{
+                                "examples":{
+                                    "client":{
+                                        "value":{
+                                           "message":"Contact non-existent"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "204":{
+                        "description":"No Content"
+                    }
+                }
+            }
+        }
+                                            
+        
+    },
+
+    "components":{
+        "schemas":{
+            "Client":{
+                "type":"object",
+                "properties":{
+                    "name":{
+                        "type":"string"
+                    },
+                    "email":{
+                        "type":"string"
+                    },
+                    "password":{
+                        "type":"string"
+                    },
+                    "telephone":{
+                        "type":"string"
+                    },
+                    "isAdm":{
+                        "type":"boolean"
+                    },
+
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "id":{
+                        "type":"string"
+                    }
+                    
+
+
+                }
+            },
+
+
+            "ClientId":{
+                "type":"object",
+                "properties":{
+                   
+                    "id":{
+                        "type":"string"
+                    }
+                    
+
+
+                }
+            },
+
+
+            "ContactResponse":{
+                "type":"object",
+                "properties":{
+                    "name":{
+                        "type":"string"
+                    },
+                    "email":{
+                        "type":"string"
+                    },
+                    "telephone":{
+                        "type":"string"
+                    },
+                   
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "id":{
+                        "type":"string"
+                    },
+                    "client":{
+                        "$ref":"#/components/schemas/ClientId"
+                        
+
+                    }
+                    
+
+
+                }
+            },
+
+            "ContactBody":{
+                "type":"object",
+                "properties":{
+                    "name":{
+                        "type":"string"
+                    },
+                    "email":{
+                        "type":"string"
+                    },
+                    "telephone":{
+                        "type":"string"
+                    }
+            
+                    
+
+
+                }
+            },
+
+            "ContactResponseGet":{
+                "type":"object",
+                "properties":{
+                    "id":{
+                        "type":"string"
+                    },
+                    "name":{
+                        "type":"string"
+                    },
+                    "email":{
+                        "type":"string"
+                    },
+                    "telephone":{
+                        "type":"string"
+                    },
+                   
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                    
+                    
+
+
+                }
+            },
+
+            "Login":{
+                "type":"object",
+                "properties":{
+                    "email":{
+                        "type":"string"
+                    },
+                    "password":{
+                        "type":"string"
+                    }
+                }
+              
+                    
+
+
+            }
+
+
+
+        },
+
+        "securitySchemes":{
+            "bearerAuth":{
+                "type":"http",
+                "scheme":"bearer",
+                "bearerFormat":"JWT"
+            }
+        }
+    }
+}
+                                            
+
+                                        
+                                       
+
+                                    
+                                    
+                                    
+
+
+
+                                       
+                                        
+
+        
+
+
+
+
+
+            
