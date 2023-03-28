@@ -11,7 +11,7 @@ export const custumerAndAdmAndProfileUser= (req: Request, res: Response, next: N
     }
 
     else{
-        throw new AppError("not authorized", 401)
+        throw new AppError(" customer is not the owner of the profile and not an administrator", 401)
     }
     
     }
