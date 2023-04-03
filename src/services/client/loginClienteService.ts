@@ -40,7 +40,14 @@ export const loginClientService = async  (data:IClientLogin)=>{
         }
         
     )
+    const obj = {
+        ...client, 
+        password:undefined, 
+        createdAt:undefined, 
+        updatedAt:undefined, 
+        email:undefined, 
+        telephone:undefined }
 
-    return {token}
+    return {token, client:obj}
 
 }

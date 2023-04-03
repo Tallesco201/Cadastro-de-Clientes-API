@@ -4,12 +4,18 @@ import handleError from './errors/handleError';
 import clientRouter from './routes/clientRoutes';
 import contactsRouter from './routes/contactsRoutes';
 import loginRouter from './routes/loginRoutes';
+import cors, { CorsOptions } from 'cors';
 import swaggerUi from "swagger-ui-express"
 import swaggerDocs  from './swagger.json';
 
 
 const app = express();
-app.use(express.json())
+const corsOptions: CorsOptions = {
+    origin: ["http://localhost:3000"],
+  };
+  app.use(express.json())
+  app.use(cors(corsOptions));
+
 
 app.use("/client", clientRouter)
 app.use("/contact", contactsRouter)

@@ -1,4 +1,4 @@
- # A API se encontra no endereço http://localhost:3000/api-docs
+ # A API se encontra no endereço http://localhost:3001/api-docs
 
  ## Como inicializar o servidor da Api
  - Clone o repositorio
@@ -12,4 +12,4 @@
  - Após instalar as dependencias execute o comando 
   ```yarn dev``` para inicializar o servidor.
   #
-- Com o servidor inicializado copie este link http://localhost:3000/api-docs e cole no espaço da URL de seu browser, assim podendo ver a documentação completa desta API. ❤️🚀 🚀 
+- Com o servidor inicializado copie este link http://localhost:3001/api-docs e cole no espaço da URL de seu browser, assim podendo ver a documentação completa desta API. ❤️🚀 🚀 
